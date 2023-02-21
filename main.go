@@ -28,7 +28,14 @@ func main() {
 
 	if err := updater.PersistChanges(node, fset, destination+"/encode.go"); err != nil {
 		log.Fatal(err) // TODO
-		 
+
 	}
 
+	if err := updater.CreateInterface(destination + "/interfaces.go"); err != nil {
+		log.Fatal(err) // TODO
+	}
+
+	if err := updater.CreateInterfaceTest(destination + "/interfaces_test.go"); err != nil {
+		log.Fatal(err) // TODO
+	}
 }
