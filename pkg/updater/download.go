@@ -5,10 +5,11 @@ import (
 	"compress/gzip"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"path/filepath"
+
+	"github.com/infiniteloopcloud/jsongen/pkg/logger"
 )
 
 const template = "https://go.googlesource.com/go/+archive/refs/tags/%s/src/encoding/json.tar.gz"
@@ -21,7 +22,7 @@ func DownloadTarGz(version string) (string, error) {
 	}
 	defer func() {
 		if err := file.Close(); err != nil {
-			log.Println("[ERROR] ", err.Error())
+			logger.Error(err.Error())
 		}
 	}()
 
@@ -34,11 +35,11 @@ func DownloadTarGz(version string) (string, error) {
 
 	resp, err := client.Get(fmt.Sprintf(template, version))
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
 	defer func() {
 		if err := resp.Body.Close(); err != nil {
-			log.Println("[ERROR] ", err.Error())
+			logger.Error(err.Error())
 		}
 	}()
 
@@ -54,7 +55,7 @@ func ExtractTarGz(src string, dst string) error {
 	}
 	defer func() {
 		if err := file.Close(); err != nil {
-			log.Println("[ERROR] ", err.Error())
+			logger.Error(err.Error())
 		}
 	}()
 

@@ -5,8 +5,9 @@ import (
 	"go/parser"
 	"go/printer"
 	"go/token"
-	"log"
 	"os"
+
+	"github.com/infiniteloopcloud/jsongen/pkg/logger"
 )
 
 func ParseAndModify(file string) (*ast.File, *token.FileSet, error) {
@@ -31,11 +32,11 @@ func ParseAndModify(file string) (*ast.File, *token.FileSet, error) {
 func PersistChanges(node *ast.File, fset *token.FileSet, filename string) error {
 	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer func() {
 		if err := file.Close(); err != nil {
-			log.Println("[ERROR] ", err.Error())
+			logger.Error(err.Error())
 		}
 	}()
 

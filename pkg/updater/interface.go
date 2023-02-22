@@ -2,20 +2,21 @@ package updater
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"strings"
+
+	"github.com/infiniteloopcloud/jsongen/pkg/logger"
 )
 
 func CreateInterface(filename string) error {
 	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	defer func() {
 		if err := file.Close(); err != nil {
-			log.Println("[ERROR] ", err.Error())
+			logger.Error(err.Error())
 		}
 	}()
 
@@ -26,12 +27,12 @@ func CreateInterface(filename string) error {
 func CreateInterfaceTest(filename string) error {
 	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	defer func() {
 		if err := file.Close(); err != nil {
-			log.Println("[ERROR] ", err.Error())
+			logger.Error(err.Error())
 		}
 	}()
 
