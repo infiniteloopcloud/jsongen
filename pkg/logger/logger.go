@@ -1,6 +1,9 @@
 package logger
 
-import "log"
+import (
+	"log"
+	"os"
+)
 
 func Info(v ...any) {
 	log.Println("[INFO] ", v)
@@ -8,4 +11,5 @@ func Info(v ...any) {
 
 func Error(v ...any) {
 	log.Println("[ERROR] ", v)
+	os.Exit(1)
 }
