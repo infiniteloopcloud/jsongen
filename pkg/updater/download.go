@@ -80,6 +80,9 @@ func untar(r io.Reader, dst string) error {
 		case header == nil:
 			continue
 		}
+		if header.Name == "bench_test.go" {
+			continue
+		}
 		target := filepath.Join(dst, header.Name)
 		switch header.Typeflag {
 		case tar.TypeDir:
