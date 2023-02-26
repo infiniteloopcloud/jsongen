@@ -10,8 +10,8 @@ var version = "go1.20.1"
 var destination = "../json_try"
 
 func init() {
-	flag.StringVar(&version, "version", "", "Version you want to apply the generation (format: go1.20.1)")
-	flag.StringVar(&destination, "destination", "", "Location of the repository where you want to generate")
+	flag.StringVar(&version, "version", "go1.20.1", "Version you want to apply the generation (format: go1.20.1)")
+	flag.StringVar(&destination, "destination", "../json_try", "Location of the repository where you want to generate")
 	flag.Parse()
 }
 

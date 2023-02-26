@@ -59,6 +59,8 @@ func (az alwayszero) IsZero() bool {
 	"",
 	"\tAzr alwayszero `json:\"azr\"`",
 	"\tAzo alwayszero `json:\"azo,omitempty\"`",
+	"",
+	"\tPtrAzo *alwayszero `json:\"ptrAzo,omitempty\"`",
 	"}",
 	"",
 	"var optionalsIsZeroExpected = `{",
