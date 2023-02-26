@@ -70,18 +70,45 @@ func ifStmt() ast.Stmt {
 		},
 		Body: &ast.BlockStmt{
 			List: []ast.Stmt{
-				&ast.ReturnStmt{
-					Results: []ast.Expr{
-						&ast.CallExpr{
-							Fun: &ast.SelectorExpr{
-								X: &ast.Ident{
-									Name: "z",
+				&ast.IfStmt{
+					Cond: &ast.Ident{
+						Name: "v.Kind() == reflect.Pointer",
+					},
+					Body: &ast.BlockStmt{
+						List: []ast.Stmt{
+							&ast.IfStmt{
+								Cond: &ast.Ident{
+									Name: "!v.IsNil()",
 								},
-								Sel: &ast.Ident{
-									Name: "IsZero",
+								Body: &ast.BlockStmt{
+									List: []ast.Stmt{
+										returnStmt(),
+									},
 								},
 							},
 						},
+					},
+					Else: &ast.BlockStmt{
+						List: []ast.Stmt{
+							returnStmt(),
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func returnStmt() ast.Stmt {
+	return &ast.ReturnStmt{
+		Results: []ast.Expr{
+			&ast.CallExpr{
+				Fun: &ast.SelectorExpr{
+					X: &ast.Ident{
+						Name: "z",
+					},
+					Sel: &ast.Ident{
+						Name: "IsZero",
 					},
 				},
 			},
